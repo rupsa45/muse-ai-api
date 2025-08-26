@@ -5,6 +5,7 @@ from db import connect_db, disconnect_db,db
 
 from routes import users
 from routes import stories
+from routes import drafts
 
 import os
 
@@ -22,3 +23,4 @@ async def shutdown():
 # Include routes
 app.include_router(users.router)
 app.include_router(stories.router, prefix="/stories", tags=["stories"])
+app.include_router(drafts.router, prefix="/drafts", tags=["drafts"])
