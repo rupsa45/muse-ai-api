@@ -1,9 +1,7 @@
 
 from pydantic import BaseModel
 
-# Request schema for story generation
+# Request schema for story generation (user gives only a prompt)
 class StoryRequest(BaseModel):
-    title: str
-    mode: str
-    style: str
+    prompt: str
     userId: str | None = None
