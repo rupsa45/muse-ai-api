@@ -1,46 +1,30 @@
-from services.llm import llm , prompt
+from services.llm import llm , story_prompt
 from db import db
 from fastapi import  HTTPException
 
 
 
 # Generate story from user prompt
-async def generate_story(prompt_text: str, userId: str | None = None):
-    try:
-        chain = prompt | llm
-        response = await chain.ainvoke({
-            "input": prompt_text
-        })
+async def generate_story_service(prompt: str, user_id: str | None = None):
+    """Handles story generation using LLM and saves to DB"""
 
-        # Extract text (AI will return full story + title suggestion inside response.content)
-        ai_output = response.content
+    # Format messages with user prompt
+    messages = story_prompt.format_messages(user_prompt=prompt)
 
-        # For simplicity: split title and content if AI includes "Title:"
-        title = "Untitled Story"
-        content = ai_output
+    # Call the LLM
+    response = await llm.ainvoke(messages)
+    generated_content = response.content
 
-        if "Title:" in ai_output:
-            parts = ai_output.split("Title:", 1)
-            if len(parts) > 1:
-                # Extract title and story separately
-                maybe_title = parts[1].split("\n", 1)[0].strip()
-                if maybe_title:
-                    title = maybe_title
-                content = ai_output
+    # Save draft in DB
+    draft = await db.draft.create(
+        data={
+            "title": "Untitled Story",   # Later we can improve to auto-extract from AI
+            "content": generated_content,
+            "userId": user_id
+        }
+    )
 
-        # Save draft to DB
-        draft = await db.draft.create(
-            data={
-                "title": title,
-                "content": content,
-                "userId": userId,
-            }
-        )
-        return draft
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    
+    return draft
     
 
 async def analyze_story(draftId: str):

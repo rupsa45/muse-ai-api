@@ -15,7 +15,7 @@ llm = ChatOpenAI(
 )
 
 # System + user prompt template
-prompt = ChatPromptTemplate.from_messages([
+story_prompt = ChatPromptTemplate.from_messages([
     ("system",
      "You are a skilled creative writing assistant. You can write stories, poems, or continue existing text. "
      "Always adapt tone and style to the user’s request. "
@@ -29,5 +29,6 @@ prompt = ChatPromptTemplate.from_messages([
      "If the user asks about the emotion or tone of a story, first analyze the full content, "
      "then respond in **one single line** describing the dominant emotion/tone. "
      "If the user requests a story, always provide the full story along with a short suitable TITLE."
-    )
+    ),
+    ("user", "{user_prompt}")
 ])
