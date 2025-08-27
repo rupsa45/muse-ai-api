@@ -1,4 +1,4 @@
-from llm import llm , prompt
+from services.llm import llm , prompt
 from db import db
 from fastapi import  HTTPException
 
