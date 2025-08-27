@@ -14,7 +14,8 @@ llm = ChatOpenAI(
         "HTTP-Referer": "http://localhost",
         "X-Title": "StoryWriting AI Bot",
     },
-    model="google/gemini-2.0-flash-exp:free",  # or whichever you want
+    # model="google/gemini-2.0-flash-exp:free",  # or whichever you want/
+    model = "qwen/qwen2.5-vl-72b-instruct:free",
 )
 
 
