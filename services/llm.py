@@ -34,6 +34,7 @@ story_prompt = ChatPromptTemplate.from_messages([
      "If the user requests a continuation, seamlessly build on the existing text. "
      "Always prioritize creativity and user engagement in your writing. "
      "If the user asks about the emotion or tone of a story, first analyze the full content, "
+     "Always provide a short, creative title for the story at the top."
      "then respond in **one single line** describing the dominant emotion/tone. "
      "If the user requests a story, always provide the full story along with a short suitable TITLE."
     ),
