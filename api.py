@@ -20,7 +20,7 @@ async def shutdown():
     await disconnect_db()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Replace "*" with the frontend URL for better security
+    allow_origins=[os.getenv("FRONTEND_URL")],  # Replace "*" with the frontend URL for better security
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
