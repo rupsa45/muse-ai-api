@@ -1,17 +1,24 @@
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# llm = ChatOpenAI(
+#     api_key=os.getenv("OPENROUTER_API_KEY"),
+#     base_url="https://openrouter.ai/api/v1",
+#     default_headers={
+#         "HTTP-Referer": "http://localhost",
+#         "X-Title": "StoryWriting AI Bot",
+#     },
+#     # model="google/gemini-2.0-flash-exp:free", 
+#     model = "models/gemma-3n-e2b-it",
+# )
 
 llm = ChatOpenAI(
-    api_key=os.getenv("OPENROUTER_API_KEY"),
+    api_key=os.getenv("OPENROUTER_API_KEY"),  
     base_url="https://openrouter.ai/api/v1",
-    default_headers={
-        "HTTP-Referer": "http://localhost",
-        "X-Title": "StoryWriting AI Bot",
-    },
-    # model="google/gemini-2.0-flash-exp:free",  # or whichever you want/
-    model = "qwen/qwen2.5-vl-72b-instruct:free",
+    model="z-ai/glm-4.5-air:free",
 )
 
 # System + user prompt template

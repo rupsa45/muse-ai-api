@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends,HTTPException
 from models.user import UserCreate, UserLogin, UserResponse
 from services.user_service import register_user, login_user, get_user_by_id
 from jose import jwt, JWTError
