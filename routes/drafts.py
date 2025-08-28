@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from services.llm import llm 
 from models.revise import ReviseRequest
+from fastapi.encoders import jsonable_encoder
 
 from db import db
 
@@ -8,10 +9,10 @@ router = APIRouter()
 
 
 ##Get all drafts for a user
-@router.get("/{userId}")
+@router.get("/user/{userId}")  # <-- add /user here
 async def get_drafts(userId: str):
     drafts = await db.draft.find_many(where={"userId": userId})
-    return drafts
+    return {"drafts": jsonable_encoder(drafts)}
 
 
 ##Get a single draft by ID
@@ -20,7 +21,7 @@ async def get_draft(draftId: str):
     draft = await db.draft.find_unique(where={"id": draftId})
     if not draft:
         raise HTTPException(status_code=404, detail="Draft not found")
-    return draft
+    return {"draft": jsonable_encoder(draft)}
 
 ##Delete a draft
 @router.delete("/draft/{draftId}")
@@ -49,11 +50,12 @@ async def revise_draft(request: ReviseRequest):
         data={
             "title": f"{draft.title} (Revised)",
             "content": updated_content,
+            "prompt": request.instruction,  # Store user instruction as prompt
             "userId": draft.userId
         }
     )
 
     return {
         "message": "Draft revised and saved as a new version",
-        "draft": new_draft
+        "draft": jsonable_encoder(new_draft)
     }

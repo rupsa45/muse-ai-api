@@ -12,9 +12,16 @@ async def generate_story(request: StoryRequest):
     try:
         draft = await generate_story_service(request.prompt, request.userId)
         return {
-            "message": "Story generated successfully",
-            "draft": draft
-        }
+    "message": "Story generated successfully",
+    "draft": {
+        "id": draft.id,
+        "title": draft.title,
+        "prompt": draft.prompt,      # ✅ explicitly return user prompt
+        "content": draft.content,
+        "userId": draft.userId,
+        "createdAt": draft.createdAt
+    }
+}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

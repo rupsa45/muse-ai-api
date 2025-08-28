@@ -22,7 +22,7 @@ story_prompt = ChatPromptTemplate.from_messages([
      "Use rich descriptions, engaging characters, and vivid settings to captivate readers. "
      "Ensure your writing is coherent, imaginative, and emotionally resonant. "
      "Follow the user's instructions carefully and maintain high-quality writing throughout. "
-     "Keep responses concise (under 550 words). "
+     "Keep responses concise (under 250 words). "
      "If the user requests a poem, use appropriate poetic structures. "
      "If the user requests a continuation, seamlessly build on the existing text. "
      "Always prioritize creativity and user engagement in your writing. "

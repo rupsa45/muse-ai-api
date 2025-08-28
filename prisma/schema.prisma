@@ -26,6 +26,7 @@ model Draft {
   id        String   @id @default(uuid())
   title     String
   content   String
+  prompt    String @default("")
   user      User?    @relation(fields: [userId], references: [id])
   userId    String?
   createdAt DateTime @default(now())

@@ -19,7 +19,8 @@ async def generate_story_service(prompt: str, user_id: str | None = None):
     draft = await db.draft.create(
         data={
             "title": "Untitled Story",   # Later we can improve to auto-extract from AI
-            "content": generated_content,
+            "prompt": prompt,              # ✅ store user input
+            "content": generated_content,  # ✅ store AI output
             "userId": user_id
         }
     )
