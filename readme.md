@@ -25,11 +25,11 @@ StoryRequest → keeps story generation API super simple (just prompt + optional
 
 DraftRequest → covers cases where you might want to save a draft manually (instead of AI).
 
-AnalyzeRequest → keeps analysis logic isolated to an existing draft.
+
 
 Generate → User gives a prompt → AI creates a draft (saved in DB).
 
-Analyze → AI gives tone/emotion.
+
 
 Revise / Continue → User says things like:
 
